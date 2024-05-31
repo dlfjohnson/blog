@@ -1,19 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
-
-type Post = {
-  id: string,
-  title: string,
-};
+import prisma from '@/lib/db';
 
 export default async function PostsList() {
-  await new Promise((resolve) => setTimeout(resolve, 1500));
-  const response = await fetch('https://dummyjson.com/posts?limit=10');
-  const data = await response.json();
+  // await new Promise((resolve) => setTimeout(resolve, 1500));
+  const posts = await prisma.post.findMany();
 
   return (
     <ul>
-      {data.posts.map((post: Post) => (
+      {posts.map((post) => (
         <li key={post.id} className="mb-3">
           <Link href={`/posts/${post.id}`}>{post.title}</Link>
         </li>

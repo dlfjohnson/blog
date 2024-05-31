@@ -5,6 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import {
+  RegisterLink,
+  LoginLink,
+  LogoutLink
+} from "@kinde-oss/kinde-auth-nextjs/components";
 
 const navLinks = [
   {
@@ -15,11 +20,14 @@ const navLinks = [
     href: '/posts',
     label: 'Posts'
   },
+  {
+    href: '/create-post',
+    label: 'Create post'
+  },
 ];
 
 export default function Header() {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <header className="flex justify-between items-center py-4 px-7 border-b">
@@ -48,6 +56,9 @@ export default function Header() {
               </li>
             ))
           }
+          <LoginLink>Sign in</LoginLink>
+          <LogoutLink>Sign out</LogoutLink>
+          <RegisterLink>Sign up</RegisterLink>
         </ul>
       </nav>
     </header>
