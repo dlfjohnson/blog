@@ -34,16 +34,52 @@ export default function Form() {
       <input
         type="text"
         name="title"
-        placeholder="Title for new post"
+        placeholder="Post title"
+        className="border rounded px-3 h-10"
+      />
+      <input
+        type="text"
+        name="genre"
+        placeholder="Genre"
+        className="border rounded px-3 h-10"
+      />
+      <input
+        type="text"
+        name="song"
+        placeholder="Song"
         className="border rounded px-3 h-10"
         required
       />
+      <input
+        type="text"
+        name="artist"
+        placeholder="Artist"
+        className="border rounded px-3 h-10"
+        required
+      />
+      <input
+        type="text"
+        name="spotifyLink"
+        placeholder="Spotify link"
+        className="border rounded px-3 h-10"
+      />
+      <input
+        type="text"
+        name="soundCloudLink"
+        placeholder="SoundCloud link"
+        className="border rounded px-3 h-10"
+      />
+      <input
+        type="text"
+        name="youTubeLink"
+        placeholder="YouTube link"
+        className="border rounded px-3 h-10"
+      />
       <textarea
         name="body"
-        placeholder="Body content for new post"
+        placeholder="Description"
         className="border rounded px-3 py-2"
         rows={6}
-        required
       />
       <button className="h-10 bg-blue-500 px-5 rounded text-white">Submit</button>
     </form>

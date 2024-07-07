@@ -21,3 +21,11 @@ export const getErrorMessage = (error: unknown): string => {
 
   return message;
 };
+
+export function extractSpotifyTrackId(url: string): string | null {
+  // Split the URL by '/'
+  const parts = url.split('/');
+  // Find the index of 'track' and return the next part
+  const trackIndex = parts.indexOf('track');
+  return trackIndex !== -1 && trackIndex + 1 < parts.length ? parts[trackIndex + 1] : null;
+}

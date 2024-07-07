@@ -12,9 +12,17 @@ datasource db {
 }
 
 model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  body      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              Int     @id @default    (autoincrement())
+  title           String
+  genre           String
+  song            String
+  artist          String
+  spotifyLink     String
+  soundCloudLink  String
+  youTubeLink     String
+  body            String
+  username        String
+  userId          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

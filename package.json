@@ -13,6 +13,7 @@
     "@kinde-oss/kinde-auth-nextjs": "^2.2.13",
     "@prisma/client": "^5.14.0",
     "clsx": "^2.1.1",
+    "moment": "^2.30.1",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",

@@ -33,7 +33,7 @@ export default function Header() {
   const { isAuthenticated, isLoading } = useKindeBrowserClient();
 
   return (
-    <header className="flex justify-between items-center py-4 px-7 border-b">
+    <header className="flex justify-between items-center py-4 px-7 border-b border-[#F2F2F2]">
       <Link href="/">
         <Image
           src="https://bytegrad.com/course-assets/youtube/example-logo.png"

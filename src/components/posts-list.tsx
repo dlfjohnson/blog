@@ -1,17 +1,21 @@
 import React from 'react';
-import Link from 'next/link';
 import prisma from '@/lib/db';
+import Post from '@/components/post';
 
 export default async function PostsList() {
-  // await new Promise((resolve) => setTimeout(resolve, 1500));
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    orderBy: {
+      id: 'desc',
+  },
+  })
 
   return (
-    <ul>
+    <ul className="flex flex-col gap-3">
       {posts.map((post) => (
-        <li key={post.id} className="mb-3">
-          <Link href={`/posts/${post.id}`}>{post.title}</Link>
-        </li>
+        <Post
+          key={post.id}
+          data={post}
+        />
       ))}
     </ul>
   )
