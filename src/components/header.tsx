@@ -10,6 +10,8 @@ import {
   LoginLink,
   LogoutLink
 } from "@kinde-oss/kinde-auth-nextjs/components";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+
 
 const navLinks = [
   {
@@ -28,6 +30,7 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { isAuthenticated, isLoading } = useKindeBrowserClient();
 
   return (
     <header className="flex justify-between items-center py-4 px-7 border-b">
@@ -44,21 +47,37 @@ export default function Header() {
       <nav>
         <ul className="flex gap-x-5 text-[14px]">
           {
-            navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={clsx({
-                    'text-zinc-400': true,
-                    'text-zinc-900': pathname === link.href
-                  })}
-                >{link.label}</Link>
-              </li>
-            ))
+            navLinks.map((link) => {
+              if (
+                (!isAuthenticated && link.label === 'Create post') ||
+                (isLoading && link.label === 'Create post')
+              ) return;
+
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={clsx({
+                      'text-zinc-400': true,
+                      'text-zinc-900': pathname === link.href
+                    })}
+                  >{link.label}</Link>
+                </li>
+              )
+            })
           }
-          <LoginLink>Sign in</LoginLink>
-          <LogoutLink>Sign out</LogoutLink>
-          <RegisterLink>Sign up</RegisterLink>
+          {!isLoading &&
+            <>
+              {isAuthenticated ?
+                <LogoutLink>Sign out</LogoutLink>
+              :
+                <>
+                  <LoginLink>Sign in</LoginLink>
+                  <RegisterLink>Sign up</RegisterLink>
+                </>
+              }
+            </>
+          }
         </ul>
       </nav>
     </header>
