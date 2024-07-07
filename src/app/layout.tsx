@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Container from "@/components/container";
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-zinc-100 text-zinc-800 min-h-screen`}>
-        <Container>
-          <Header />
-          {children}
-          <Footer />
-        </Container>
+          <Container>
+            <Toaster position="top-center" />
+            <Header />
+            {children}
+            <Footer />
+          </Container>
       </body>
     </html>
   );

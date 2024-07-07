@@ -4,8 +4,10 @@ import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getErrorMessage } from '@/lib/utils';
 
 export async function createPost(formData: FormData) {
+  // auth check
   const { isAuthenticated } = getKindeServerSession();
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
@@ -16,14 +18,25 @@ export async function createPost(formData: FormData) {
   const title = formData.get("title") as string;
   const body = formData.get("body") as string;
 
-  // insert to database
-  await prisma.post.create({
-    data: {
-      title,
-      body,
+  let data;
+  try {
+    // insert to database
+    data = await prisma.post.create({
+      data: {
+        title,
+        body,
+      }
+    })
+  } catch (error: unknown) {
+    return {
+      error: getErrorMessage(error)
     }
-  })
+  }
 
   // revalidate
   revalidatePath("/posts");
+
+  return {
+    data,
+  };
 }

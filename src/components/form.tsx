@@ -1,10 +1,34 @@
-import React from 'react';
+'use client';
+
+import React, { useRef } from 'react';
 import { createPost } from "@/actions/actions";
+import toast from 'react-hot-toast';
 
 export default function Form() {
+  const formRef = useRef<HTMLFormElement>(null);
+
   return (
     <form
-      action={createPost}
+      ref={formRef}
+      action={async formData => {
+        const { error } = await createPost(formData);
+
+        if (error) {
+          toast.error(error);
+          return;
+        }
+
+        toast.success(
+          'Post saved!',
+          {
+            duration: 4000
+          }
+        );
+
+        if (formRef.current) {
+          formRef.current.reset();
+        }
+      }}
       className="flex flex-col max-w-[400px] mx-auto gap-2 my-10"
     >
       <input
